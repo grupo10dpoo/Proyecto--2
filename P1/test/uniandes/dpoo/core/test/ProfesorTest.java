@@ -37,7 +37,7 @@ public class ProfesorTest {
         learningPath1 = new LearningPath(1, "Curso de Java", "Curso completo de Java", "Curso", "Aprender Java", "Intermedio", 40.0);
         learningPath2 = new LearningPath(2, "Curso de Python", "Curso avanzado de Python", "Curso", "Profundizar en Python", "Avanzado", 50.0);
         estudiante1 = new Estudiante("Carlos", "password123", "carlos@example.com", 101);
-        actividad1 = new Actividad("Introducción a Java", "Video");
+        actividad1 = new Actividad("Introducción a Java", "Video", 101, "Conceptos básicos", "Aprender fundamentos", "Básico", 30);
         // Establecemos una calificación mínima de 2 para el quiz
         quiz = new Quiz(2.0);
     

@@ -2,6 +2,8 @@ package Proyecto1;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class LearningPath {
     private int id;
@@ -91,6 +93,31 @@ public class LearningPath {
 
     public void agregarReseña(Reseña reseña) {
         this.ultimaReseña = reseña;
+    }
+    
+    public void eliminarActividad(int idActividad) {
+        actividades.removeIf(actividad -> actividad.getId() == idActividad);
+    }
+
+    public double calcularProgreso(Estudiante estudiante) {
+        ProgresoEstudiante progreso = estudiante.getProgreso(this.id);
+        if (progreso == null) {
+            return 0.0;
+        }
+        long actividadesCompletadas = actividades.stream()
+            .filter(actividad -> progreso.getPorcentajeCompletado() > 0)
+            .count();
+        return (double) actividadesCompletadas / actividades.size() * 100;
+    }
+
+    public List<Actividad> generarRecomendaciones(Estudiante estudiante) {
+        ProgresoEstudiante progreso = estudiante.getProgreso(this.id);
+        if (progreso == null) {
+            return new ArrayList<>();
+        }
+        return actividades.stream()
+            .filter(actividad -> progreso.getPorcentajeCompletado() == 0)
+            .collect(Collectors.toList());
     }
 }
 

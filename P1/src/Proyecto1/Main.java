@@ -269,21 +269,33 @@ public class Main {
         System.out.println("Ingrese ID del Learning Path:");
         int idLP = scanner.nextInt();
         scanner.nextLine();
-
+    
         LearningPath lp = obtenerLearningPath(idLP);
         if (lp != null) {
             System.out.println("Ingrese nombre de la actividad:");
             String nombreActividad = scanner.nextLine();
             System.out.println("Ingrese tipo de actividad (Tarea, Examen, etc.):");
             String tipo = scanner.nextLine();
+            System.out.println("Ingrese descripción de la actividad:");
+            String descripcion = scanner.nextLine();
+            System.out.println("Ingrese objetivo de la actividad:");
+            String objetivo = scanner.nextLine();
+            System.out.println("Ingrese nivel de dificultad de la actividad:");
+            String nivelDificultad = scanner.nextLine();
+            System.out.println("Ingrese duración de la actividad (en minutos):");
+            int duracion = scanner.nextInt();
+            scanner.nextLine();  
 
-            Actividad actividad = new Actividad(nombreActividad, tipo);
+            int idActividad = lp.getActividades().size() + 1;
+    
+            Actividad actividad = new Actividad(nombreActividad, tipo, idActividad, descripcion, objetivo, nivelDificultad, duracion);
             lp.agregarActividad(actividad);
             System.out.println("Actividad agregada exitosamente.");
         } else {
             System.out.println("Learning Path no encontrado.");
         }
     }
+
 
     private static void iniciarSesionEstudiante() {
         System.out.println("Ingrese ID del Estudiante:");
