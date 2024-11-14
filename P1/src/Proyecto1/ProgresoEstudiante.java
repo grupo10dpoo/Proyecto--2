@@ -31,5 +31,12 @@ public class ProgresoEstudiante {
     private void actualizarProgreso() {
         this.porcentajeCompletado = (double) actividadesCompletadas.size() / totalActividades * 100;
     }
+    
+    public double calcularPorcentajeCompletado() {
+        if (totalActividades == 0) {
+            return 0.0;
+        }
+        return (double) actividadesCompletadas.size() / totalActividades * 100;
+    }
 }
 
