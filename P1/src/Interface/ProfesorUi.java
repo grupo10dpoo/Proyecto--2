@@ -1,6 +1,5 @@
 package Interface;
 
-
 import java.util.List;
 import java.util.Scanner;
 import Persistencia.ArchivoPersistencia;
@@ -47,8 +46,10 @@ public class ProfesorUi {
             if (profesor.getNombreUsuario().equals(nombreUsuario) && profesor.getContrasena().equals(contrasena)) {
                 System.out.println("Inicio de sesión exitoso. Bienvenido, " + nombreUsuario + "!");
                 encontrado = true;
+                
+                mostrarMenuProfesor(profesor);
                 // Aquí puedes agregar el código para redirigir al menú principal de Profesor.
-                break;
+               
             }
         }
 
@@ -69,13 +70,44 @@ public class ProfesorUi {
         Profesor nuevoProfesor = new Profesor(nombreUsuario, contrasena, correo, idProfesor);
 
         // Guardar el nuevo profesor en el archivo
-        List<Profesor> profesores = ArchivoPersistencia.cargarProfesores();
-        profesores.add(nuevoProfesor);
-        ArchivoPersistencia.guardarProfesores(profesores);
+        ArchivoPersistencia.guardarProfesor(nuevoProfesor);  // Cambiado a guardarProfesor
 
-        System.out.println("Registro exitoso. Ahora puede iniciar sesión.");
+        System.out.println("Registro exitoso. De ahora en adelante podrias iniciar sesión.");
+        
+        mostrarMenuProfesor(nuevoProfesor);
     }
+    
+    private static void mostrarMenuProfesor(Profesor profesor) {
+        boolean continuar = true;
 
+        while (continuar) {
+            System.out.println("\nBienvenido, " + profesor.getNombreUsuario());
+            System.out.println("1. Ver perfil");
+            System.out.println("2. Opción de ejemplo 2");
+            System.out.println("3. Salir");
+            System.out.print("Seleccione una opción: ");
+            int opcion = scanner.nextInt();
+            scanner.nextLine();  // Consumir el salto de línea
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("Perfil del Profesor:");
+                    System.out.println("Nombre: " + profesor.getNombreUsuario());
+                    System.out.println("Correo: " + profesor.getCorreo());
+                    break;
+                case 2:
+                    System.out.println("Opción 2 seleccionada.");
+                    break;
+                case 3:
+                    System.out.println("Saliendo...");
+                    continuar = false;
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+                    break;
+            }
+        }
+    }
     private static int generarIdProfesor() {
         List<Profesor> profesores = ArchivoPersistencia.cargarProfesores();
         return profesores.size() + 1;

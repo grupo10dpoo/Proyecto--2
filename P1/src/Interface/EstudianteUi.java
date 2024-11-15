@@ -1,6 +1,5 @@
 package Interface;
 
-
 import java.util.List;
 import java.util.Scanner;
 import Persistencia.ArchivoPersistencia;
@@ -47,8 +46,11 @@ public class EstudianteUi {
             if (estudiante.getNombreUsuario().equals(nombreUsuario) && estudiante.getContrasena().equals(contrasena)) {
                 System.out.println("Inicio de sesión exitoso. Bienvenido, " + nombreUsuario + "!");
                 encontrado = true;
+                
+                mostrarMenuEstudiante(estudiante);
+                
                 // Aquí puedes agregar el código para redirigir al menú principal de Estudiante.
-                break;
+               
             }
         }
 
@@ -69,17 +71,50 @@ public class EstudianteUi {
         Estudiante nuevoEstudiante = new Estudiante(nombreUsuario, contrasena, correo, idEstudiante);
 
         // Guardar el nuevo estudiante en el archivo
-        List<Estudiante> estudiantes = ArchivoPersistencia.cargarEstudiantes();
-        estudiantes.add(nuevoEstudiante);
-        ArchivoPersistencia.guardarEstudiante(estudiantes);
+        ArchivoPersistencia.guardarEstudiante(nuevoEstudiante);  // Cambiamos a guardarEstudiante
 
-        System.out.println("Registro exitoso. Ahora puede iniciar sesión.");
+        System.out.println("Registro exitoso. De ahora en adelante podrias iniciar sesión.");
+        
+        mostrarMenuEstudiante(nuevoEstudiante);
     }
+    
+    private static void mostrarMenuEstudiante(Estudiante estudiante) {
+        boolean continuar = true;
+
+        while (continuar) {
+            System.out.println("\nBienvenido, " + estudiante.getNombreUsuario());
+            System.out.println("1. Ver perfil");
+            System.out.println("2. Opción de ejemplo 2");
+            System.out.println("3. Salir");
+            System.out.print("Seleccione una opción: ");
+            int opcion = scanner.nextInt();
+            scanner.nextLine();  // Consumir el salto de línea
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("Perfil del Estudiante:");
+                    System.out.println("Nombre: " + estudiante.getNombreUsuario());
+                    System.out.println("Correo: " + estudiante.getCorreo());
+                    break;
+                case 2:
+                    System.out.println("Opción 2 seleccionada.");
+                    break;
+                case 3:
+                    System.out.println("Saliendo...");
+                    continuar = false;
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+                    break;
+            }
+        }
+        }
 
     private static int generarIdEstudiante() {
         List<Estudiante> estudiantes = ArchivoPersistencia.cargarEstudiantes();
         return estudiantes.size() + 1;
     }
 }
+
 
 
