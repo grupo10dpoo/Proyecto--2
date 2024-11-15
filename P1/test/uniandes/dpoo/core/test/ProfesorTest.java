@@ -65,10 +65,16 @@ public class ProfesorTest {
     @Test
     void testModificarLearningPath() {
         profesor1.crearLearningPath(learningPath1);
-        profesor1.modificarLearningPath(learningPath1, "Curso de Java Avanzado", "Curso completo y avanzado de Java");
+        profesor1.modificarLearningPath(learningPath1.getId(), "Curso de Java Avanzado", "Curso completo y avanzado de Java", "Curso", "Entener y Dominar Java a un nivel azanvado", "Avanzado",20.0);
         
         assertEquals("Curso de Java Avanzado", learningPath1.getTitulo(), "El título del learning path debería haberse actualizado.");
         assertEquals("Curso completo y avanzado de Java", learningPath1.getDescripcion(), "La descripción del learning path debería haberse actualizado.");
+        assertEquals("Curso" , learningPath1.getTipo(), "La Tipo del learning path debería haberse actualizado.");
+        assertEquals("Entener y Dominar Java a un nivel azanvado" , learningPath1.getObjetivo(), "El objetivo del learning path debería haberse actualizado.");
+
+        assertEquals("Avanzado" , learningPath1.getNivelDificultad(), "El nivel de dificultad del learning path debería haberse actualizado.");
+        assertEquals(20.0 , learningPath1.getTiempoEstimado(), "El tiempo del learning path debería haberse actualizado.");
+
     }
 
     @Test

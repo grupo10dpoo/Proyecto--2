@@ -31,10 +31,6 @@ public class Profesor extends Usuario {
         learningPaths.add(lp);
     }
 
-    public void modificarLearningPath(LearningPath lp, String nuevoTitulo, String nuevaDescripcion) {
-        lp.setTitulo(nuevoTitulo);
-        lp.setDescripcion(nuevaDescripcion);
-    }
 
     public void eliminarLearningPath(LearningPath lp) {
         learningPaths.remove(lp);
@@ -100,5 +96,6 @@ public class Profesor extends Usuario {
         }
         System.out.println("Learning Path con ID " + idLearningPath + " no encontrado.");
     }
+    
 }
 

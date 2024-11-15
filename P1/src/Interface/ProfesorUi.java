@@ -1,11 +1,15 @@
 package Interface;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import Persistencia.ArchivoPersistencia;
+import Proyecto1.LearningPath;
 import Proyecto1.Profesor;
 
 public class ProfesorUi {
+		
+    private static List<LearningPath> learningPaths = new ArrayList<>();
 
     private static Scanner scanner = new Scanner(System.in);
 
@@ -83,8 +87,10 @@ public class ProfesorUi {
         while (continuar) {
             System.out.println("\nBienvenido, " + profesor.getNombreUsuario());
             System.out.println("1. Ver perfil");
-            System.out.println("2. Opción de ejemplo 2");
-            System.out.println("3. Salir");
+            System.out.println("2. Crear Learning Path");
+            System.out.println("3. Modificar Learning Path");
+            System.out.println("4. Agregar Actividad");
+            System.out.println("5. Salir");
             System.out.print("Seleccione una opción: ");
             int opcion = scanner.nextInt();
             scanner.nextLine();  // Consumir el salto de línea
@@ -96,9 +102,10 @@ public class ProfesorUi {
                     System.out.println("Correo: " + profesor.getCorreo());
                     break;
                 case 2:
-                    System.out.println("Opción 2 seleccionada.");
+                    crearLearningPathProfesor(profesor);
                     break;
-                case 3:
+
+                case 5:
                     System.out.println("Saliendo...");
                     continuar = false;
                     break;
@@ -112,5 +119,30 @@ public class ProfesorUi {
         List<Profesor> profesores = ArchivoPersistencia.cargarProfesores();
         return profesores.size() + 1;
     }
+    
+    //Funcionalidades
+    
+    private static void crearLearningPathProfesor(Profesor profesor) {
+        System.out.println("Ingrese título del Learning Path:");
+        String titulo = scanner.nextLine();
+        System.out.println("Ingrese descripción:");
+        String descripcion = scanner.nextLine();
+        System.out.println("Ingrese tipo de Learning Path:");
+        String tipo = scanner.nextLine();
+        System.out.println("Ingrese el objetivo del Learning Path:");
+        String objetivo = scanner.nextLine();
+        System.out.println("Ingrese el nivel de dificultad (principiante, intermedio, avanzado):");
+        String nivelDificultad = scanner.nextLine();
+        System.out.println("Ingrese el tiempo estimado (en horas):");
+        double tiempoEstimado = scanner.nextDouble();
+        scanner.nextLine(); 
+
+        LearningPath lp = new LearningPath(learningPaths.size() + 1, titulo, descripcion, tipo, objetivo, nivelDificultad, tiempoEstimado);
+        profesor.crearLearningPath(lp);
+        learningPaths.add(lp);
+        System.out.println("Learning Path creado exitosamente.");
+    }
 }
+
+
 

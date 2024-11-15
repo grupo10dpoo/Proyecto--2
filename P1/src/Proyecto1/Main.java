@@ -210,9 +210,11 @@ public class Main {
                 case 1:
                     crearLearningPathProfesor(profesor);
                     break;
+                /*
                 case 2:
                     modificarLearningPath(profesor);
                     break;
+                */
                 case 3:
                     agregarActividad(profesor);
                     break;
@@ -245,7 +247,7 @@ public class Main {
         learningPaths.add(lp);
         System.out.println("Learning Path creado exitosamente.");
     }
-
+    /*
     private static void modificarLearningPath(Profesor profesor) {
         System.out.println("Ingrese ID del Learning Path a modificar:");
         int idLP = scanner.nextInt();
@@ -263,7 +265,8 @@ public class Main {
         } else {
             System.out.println("Learning Path no encontrado.");
         }
-    }
+    } 
+    */
 
     private static void agregarActividad(Profesor profesor) {
         System.out.println("Ingrese ID del Learning Path:");
