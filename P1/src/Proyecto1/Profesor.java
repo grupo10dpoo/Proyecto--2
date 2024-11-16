@@ -97,5 +97,39 @@ public class Profesor extends Usuario {
         System.out.println("Learning Path con ID " + idLearningPath + " no encontrado.");
     }
     
+    public void clonarLearningPath(LearningPath lpOriginal) {
+        LearningPath clon = lpOriginal.clonar();
+        this.crearLearningPath(clon);
+        System.out.println("Clonado el Learning Path: " + lpOriginal.getTitulo());
+    }
+    
+    public void calificarActividad(String tituloLearningPath, String nombreActividad, double calificacion) {
+        for (LearningPath lp : learningPaths) {
+            if (lp.getTitulo().equals(tituloLearningPath)) {
+                for (Actividad actividad : lp.getActividades()) { // Busca actividades en el Learning Path
+                    if (actividad.getNombre().equals(nombreActividad)) {
+                        actividad.calificar(calificacion);
+                        System.out.println("Actividad '" + nombreActividad + "' en el Learning Path '" + tituloLearningPath + "' calificada como: " + actividad.getResultado());
+                        return;
+                    }
+                }
+                System.out.println("Actividad no encontrada en el Learning Path: " + tituloLearningPath);
+                return;
+            }
+        }
+        System.out.println("Learning Path no encontrado: " + tituloLearningPath);
+    }
+
+    public void revisarTasaDeExito(String tituloLearningPath) {
+        for (LearningPath lp : learningPaths) {
+            if (lp.getTitulo().equals(tituloLearningPath)) {
+                double tasaDeExito = lp.calcularTasaDeExito();
+                System.out.println("Tasa de éxito del Learning Path '" + tituloLearningPath + "': " + tasaDeExito + "%");
+                return;
+            }
+        }
+        System.out.println("Learning Path no encontrado: " + tituloLearningPath);
+    }
+    
 }
 

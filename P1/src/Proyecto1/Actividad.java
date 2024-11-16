@@ -24,7 +24,7 @@ public class Actividad {
         this.descripcion = descripcion;
         this.objetivo = objetivo;
         this.nivelDificultad = nivelDificultad;
-        this.resultado = "";
+        this.resultado = "pendiente";
         this.duracion = duracion;
         this.resultadosEstudiantes = new HashMap<>();
     }
@@ -111,5 +111,15 @@ public class Actividad {
     public String obtenerResultado(int idEstudiante) {
         return resultadosEstudiantes.getOrDefault(idEstudiante, "No asignado o no calificado");
     }
+    
+    public void calificar(double calificacion) {
+        if (calificacion >= 3.0) {
+            this.resultado = "aprobado";
+        } else {
+            this.resultado = "reprobado";
+        }
+    }
+    
+    
 }
 

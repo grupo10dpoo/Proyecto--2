@@ -48,9 +48,7 @@ public class EstudianteUi {
                 encontrado = true;
                 
                 mostrarMenuEstudiante(estudiante);
-                
-                // Aquí puedes agregar el código para redirigir al menú principal de Estudiante.
-               
+                               
             }
         }
 

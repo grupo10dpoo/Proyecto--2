@@ -36,9 +36,14 @@ public class Estudiante extends Usuario {
     public void completarActividad(int idLearningPath, String nombreActividad) {
         ProgresoEstudiante progreso = progresos.get(idLearningPath);
         if (progreso != null) {
-            progreso.completarActividad(nombreActividad);
+            boolean actividadCompletada = progreso.completarActividad(nombreActividad);
+            if (actividadCompletada) {
+                System.out.println("Actividad '" + nombreActividad + "' completada con éxito en el Learning Path con ID " + idLearningPath + ".");
+            } else {
+                System.out.println("No se encontró la actividad '" + nombreActividad + "' en este Learning Path o ya estaba completada.");
+            }
         } else {
-            System.out.println("No está inscrito en este Learning Path.");
+            System.out.println("No está inscrito en el Learning Path con ID " + idLearningPath + ".");
         }
     }
 
@@ -49,13 +54,24 @@ public class Estudiante extends Usuario {
 
 
 
-public void hacerReseña(LearningPath lp, String comentario, int calificacion) {
-    if (progresos.containsKey(lp.getId())) {
-        Reseña reseña = new Reseña(comentario, calificacion, this.getNombreUsuario());
-        lp.agregarReseña(reseña);
-        System.out.println("Reseña añadida al Learning Path: " + lp.getTitulo());
-    } else {
-        System.out.println("Debe estar inscrito en el Learning Path para hacer una reseña.");
-    }
-}
+	public void hacerReseña(LearningPath lp, String comentario, int calificacion) {
+	    if (progresos.containsKey(lp.getId())) {
+	        Reseña reseña = new Reseña(comentario, calificacion, this.getNombreUsuario());
+	        lp.agregarResena(reseña);
+	        System.out.println("Reseña añadida al Learning Path: " + lp.getTitulo());
+	    } else {
+	        System.out.println("Debe estar inscrito en el Learning Path para hacer una reseña.");
+	    }
+	}
+	
+	public void verProgresoEnLearningPath(LearningPath lp) {
+	    double progreso = lp.calcularProgreso(this);
+	    if (progreso > 0) {
+	        System.out.println("Progreso en " + lp.getTitulo() + ": " + progreso + "%");
+	    } else {
+	        System.out.println("No estás inscrito en este Learning Path o no has comenzado.");
+	    }
+	}
+
+
 }

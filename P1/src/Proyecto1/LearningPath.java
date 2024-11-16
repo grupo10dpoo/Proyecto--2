@@ -15,6 +15,9 @@ public class LearningPath {
     private double tiempoEstimado; 
     private List<Actividad> actividades;
     private Reseña ultimaReseña;
+    private List<Reseña> resenas;
+    
+    private List<Estudiante> estudiantesInscritos;
 
     public LearningPath(int id, String titulo, String descripcion, String tipo, String objetivo, String nivelDificultad, double tiempoEstimado) {
         this.id = id;
@@ -25,6 +28,9 @@ public class LearningPath {
         this.nivelDificultad = nivelDificultad;
         this.tiempoEstimado = tiempoEstimado;
         this.actividades = new ArrayList<>();
+        this.resenas = new ArrayList<>();
+        this.estudiantesInscritos = new ArrayList<>();
+
     }
 
     public int getId() {
@@ -82,7 +88,23 @@ public class LearningPath {
     public List<Actividad> getActividades() {
         return actividades;
     }
-
+    
+    public void agregarResena(Reseña resena) {
+        resenas.add(resena);
+    }
+    
+    public List<Reseña> getResenas() {
+        return resenas;
+    }
+    
+    public void agregarEstudiantesInscritos(Reseña estudiantesInscritos) {
+        resenas.add(estudiantesInscritos);
+    }
+    
+    public List<Estudiante> getEstudiantesInscritos() {
+     return estudiantesInscritos;
+    }
+    
     public void agregarActividad(Actividad actividad) {
         actividades.add(actividad);
     }
@@ -91,8 +113,9 @@ public class LearningPath {
         return ultimaReseña;
     }
 
-    public void agregarReseña(Reseña reseña) {
-        this.ultimaReseña = reseña;
+    
+    public void agregarEstudiante(Estudiante estudiante) {
+        this.estudiantesInscritos.add(estudiante);
     }
     
     public void eliminarActividad(int idActividad) {
@@ -110,6 +133,7 @@ public class LearningPath {
         return (double) actividadesCompletadas / actividades.size() * 100;
     }
 
+    
     public List<Actividad> generarRecomendaciones(Estudiante estudiante) {
         ProgresoEstudiante progreso = estudiante.getProgreso(this.id);
         if (progreso == null) {
@@ -118,6 +142,25 @@ public class LearningPath {
         return actividades.stream()
             .filter(actividad -> progreso.getPorcentajeCompletado() == 0)
             .collect(Collectors.toList());
+    }
+    
+    public LearningPath clonar() {
+        return new LearningPath(
+            this.id,
+            this.titulo + " (Copia)",
+            this.descripcion,
+            this.tipo,
+            this.objetivo,
+            this.nivelDificultad,
+            this.tiempoEstimado
+        );
+    }
+    
+    public double calcularTasaDeExito() {
+        long actividadesExitosas = actividades.stream()
+            .filter(actividad -> "aprobado".equalsIgnoreCase(actividad.getResultado()))
+            .count();
+        return (double) actividadesExitosas / actividades.size() * 100;
     }
 }
 

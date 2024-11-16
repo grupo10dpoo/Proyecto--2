@@ -1,0 +1,2 @@
+Para el uso del programa primero se debe insertar una ruta de archivos donde se va a guardar los archivos .txt de la persistencia, luego de eso al entrar naturalmente se deben crear los usuarios y los learning path, aviso importante es que los ID de los usuarios y de los learning path son el numero en la lista que se ha creado, ejemplo:
+si creaste el primer learning path su ID seria 1, si ya haz creado 6 learning path el ID del sexto seria 6, lo mismo con los usuarios.
